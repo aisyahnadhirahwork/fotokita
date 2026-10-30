@@ -315,7 +315,7 @@ function downloadStrip() {
   context.textAlign = "center";
   context.textBaseline = "middle";
   context.fillText(
-    "A LITTLE MOMENT TO REMEMBER",
+    "@fotokita",
     frameWidth / 2,
     frameHeight - bottomPadding - captionHeight / 2,
   );
@@ -328,7 +328,7 @@ function downloadStrip() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "little-moments-photo-strip.png";
+    link.download = "fotokita-photo-strip.png";
     link.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     setStatus("Your photo strip has been downloaded!");
