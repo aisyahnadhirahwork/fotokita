@@ -42,18 +42,24 @@ Because the app uses the browser camera, it should be served from a local web se
 
 Open the project in VS Code and launch it with a local static server extension such as Live Server.
 
-## Enable Vercel Web Analytics
+## Vercel Web Analytics
 
-This project is plain HTML, so use Vercel's HTML integration rather than installing the React/Next.js package:
+This project is configured with Vercel Web Analytics for tracking page views and custom events:
 
-1. In your Vercel project dashboard, open **Analytics** and enable Web Analytics.
-2. Deploy the site to Vercel and copy the script URL from Vercel's HTML instructions.
-3. Paste that URL (for example, `/<unique-path>/script.js`) into the `vercel-analytics-script` meta tag in `index.html`.
-4. Deploy again. Page views will appear in the Vercel Analytics dashboard.
+1. In your Vercel project dashboard, navigate to the **Analytics** tab and click **Enable Web Analytics**.
+2. Deploy the site to Vercel using `vercel deploy` or by pushing to your connected Git repository.
+3. Once deployed, page views will automatically be tracked and appear in the Vercel Analytics dashboard.
 
-The footer keeps its decorative stats UI, but Vercel reports totals in its dashboard rather than exposing them to the page. The displayed dashes are placeholders, not live counts. A successful camera start is also sent as a `Booth Started` custom event; custom events require a Vercel plan that supports them.
+The analytics implementation uses the standard Vercel approach for vanilla HTML/JavaScript projects:
+- The `window.va` function is initialized in the HTML head for event queuing
+- The Vercel analytics script is loaded from `/_vercel/insights/script.js`
+- Custom events are tracked, such as `Booth Started` when the camera is activated
 
-See the [Vercel Analytics quickstart for plain HTML](https://vercel.com/docs/analytics/quickstart?framework=html) and the [custom events guide](https://vercel.com/docs/analytics/custom-events) for details.
+The footer displays decorative stats UI, but actual analytics data is available in the Vercel dashboard. Custom events require a Vercel Pro plan or higher.
+
+For more information, see:
+- [Vercel Analytics Quickstart](https://vercel.com/docs/analytics/quickstart)
+- [Custom Events Guide](https://vercel.com/docs/analytics/custom-events)
 
 ## How to Use
 
