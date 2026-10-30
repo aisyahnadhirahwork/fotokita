@@ -10,9 +10,9 @@ const STRIP_FILTERS = {
   mono: "grayscale(1) contrast(1.08)",
 };
 const FRAME_STYLES = {
-  classic: { background: "#fff1d6", caption: "#6f5547", padding: 32, gap: 16, border: 0 },
-  polaroid: { background: "#ffffff", caption: "#5c4e46", padding: 32, gap: 16, border: 14 },
-  midnight: { background: "#26233a", caption: "#ffd98a", padding: 32, gap: 16, border: 0 },
+  classic: { background: "#fff1d6", caption: "#6f5547", slot: "#f0dcb8", mat: 0 },
+  polaroid: { background: "#ffffff", caption: "#5c4e46", slot: "#f4efe9", mat: 5 },
+  midnight: { background: "#26233a", caption: "#ffd98a", slot: "#3c3856", mat: 0 },
 };
 
 const camera = document.querySelector("#camera");
@@ -213,34 +213,64 @@ function downloadStrip() {
   if (photos.length !== PHOTO_LIMIT) return;
 
   const canvas = document.createElement("canvas");
-  const padding = 32;
-  const gap = 16;
-  const captionHeight = 48;
   const frame = FRAME_STYLES[selectedFrame];
-  canvas.width = PHOTO_WIDTH + padding * 2;
-  canvas.height = padding * 2 + PHOTO_HEIGHT * PHOTO_LIMIT + gap * (PHOTO_LIMIT - 1) + captionHeight;
+  const scale = PHOTO_WIDTH / 158;
+  const frameBorder = 3 * scale;
+  const padding = 14 * scale;
+  const gap = 9 * scale;
+  const slotBorder = 2 * scale;
+  const mat = frame.mat * scale;
+  const slotWidth = PHOTO_WIDTH + (slotBorder + mat) * 2;
+  const slotHeight = slotWidth / 1.75;
+  const photoHeight = slotHeight - (slotBorder + mat) * 2;
+  const captionHeight = 12 * scale;
+  const bottomPadding = 12 * scale;
+  const shadowOffsetX = 5 * scale;
+  const shadowOffsetY = 6 * scale;
+  const frameWidth = slotWidth + (padding + frameBorder) * 2;
+  const frameHeight =
+    slotHeight * PHOTO_LIMIT +
+    gap * (PHOTO_LIMIT - 1) +
+    padding +
+    frameBorder * 2 +
+    captionHeight +
+    bottomPadding;
+  canvas.width = Math.ceil(frameWidth + shadowOffsetX);
+  canvas.height = Math.ceil(frameHeight + shadowOffsetY);
   const context = canvas.getContext("2d");
 
+  context.fillStyle = "#2b1d1a";
+  context.fillRect(shadowOffsetX, shadowOffsetY, frameWidth, frameHeight);
+  context.fillStyle = "#2b1d1a";
+  context.fillRect(0, 0, frameWidth, frameHeight);
   context.fillStyle = frame.background;
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillRect(frameBorder, frameBorder, frameWidth - frameBorder * 2, frameHeight - frameBorder * 2);
+
   photos.forEach((photo, index) => {
-    const top = padding + index * (PHOTO_HEIGHT + gap);
-    if (frame.border > 0) {
-      context.fillStyle = frame.background;
-      context.fillRect(padding, top, PHOTO_WIDTH, PHOTO_HEIGHT);
-    }
+    const left = frameBorder + padding;
+    const top = frameBorder + padding + index * (slotHeight + gap);
+    context.fillStyle = frame.slot;
+    context.fillRect(left, top, slotWidth, slotHeight);
+    context.strokeStyle = "#2b1d1a";
+    context.lineWidth = slotBorder;
+    context.strokeRect(left + slotBorder / 2, top + slotBorder / 2, slotWidth - slotBorder, slotHeight - slotBorder);
     context.drawImage(
       photo,
-      padding + frame.border,
-      top + frame.border,
-      PHOTO_WIDTH - frame.border * 2,
-      PHOTO_HEIGHT - frame.border * 2,
+      left + slotBorder + mat,
+      top + slotBorder + mat,
+      PHOTO_WIDTH,
+      photoHeight,
     );
   });
-  context.fillStyle = FRAME_STYLES[selectedFrame].caption;
-  context.font = "italic 24px Georgia, serif";
+  context.fillStyle = frame.caption;
+  context.font = `700 ${9 * scale}px "Space Mono", monospace`;
   context.textAlign = "center";
-  context.fillText("a little moment to remember", canvas.width / 2, canvas.height - 18);
+  context.textBaseline = "middle";
+  context.fillText(
+    "A LITTLE MOMENT TO REMEMBER",
+    frameWidth / 2,
+    frameHeight - bottomPadding - captionHeight / 2,
+  );
 
   canvas.toBlob((blob) => {
     if (!blob) {
