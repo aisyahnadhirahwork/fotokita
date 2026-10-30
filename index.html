@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e8473f" />
+    <title>Little Moments | Online Photobooth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="awning" aria-hidden="true"></div>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Little Moments home">
+          <span class="brand-mark" aria-hidden="true">✳</span>
+          <span>little moments</span>
+        </a>
+        <span class="privacy-note"><span class="privacy-dot"></span> Just you &amp; your camera</span>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow"><span>★</span> YOUR VERY OWN PHOTOBOOTH <span>★</span></p>
+        <h1 id="page-title">Make a little <span>memory.</span></h1>
+        <p class="intro-copy">A few silly faces, a little nostalgia, and a photo strip to keep.</p>
+        <div class="intro-stickers" aria-hidden="true">
+          <span class="sticker sticker-one">4 shots</span>
+          <span class="sticker sticker-two">smile!</span>
+          <span class="sticker sticker-three">no uploads</span>
+        </div>
+      </section>
+
+      <section class="booth" aria-label="Photobooth">
+        <div class="studio">
+          <div class="bulbs" aria-hidden="true"></div>
+
+          <div class="studio-heading">
+            <div>
+              <p class="section-label">THE STUDIO</p>
+              <h2>Get camera-ready</h2>
+            </div>
+            <span class="live-badge"><span></span> LIVE</span>
+          </div>
+
+          <div class="camera-frame">
+            <video id="camera" autoplay playsinline muted aria-label="Camera preview"></video>
+            <div class="camera-placeholder" id="placeholder">
+              <div class="placeholder-sun" aria-hidden="true">☼</div>
+              <p>Your moment starts here</p>
+              <span>Turn on your camera when you’re ready</span>
+            </div>
+            <div class="countdown" id="countdown" aria-live="assertive" hidden></div>
+            <div class="flash" id="flash" aria-hidden="true"></div>
+            <span class="corner corner-tl" aria-hidden="true"></span>
+            <span class="corner corner-tr" aria-hidden="true"></span>
+            <span class="corner corner-bl" aria-hidden="true"></span>
+            <span class="corner corner-br" aria-hidden="true"></span>
+            <span class="frame-sparkle sparkle-one" aria-hidden="true">✳</span>
+            <span class="frame-sparkle sparkle-two" aria-hidden="true">✳</span>
+          </div>
+
+          <div class="camera-controls">
+            <div class="filter-picker">
+              <p class="control-label">PICK A MOOD</p>
+              <div class="filter-options" role="group" aria-label="Photo filter">
+                <button class="filter-button active" type="button" data-filter="none" aria-pressed="true">
+                  <span class="filter-swatch swatch-original"></span>Original
+                </button>
+                <button class="filter-button" type="button" data-filter="warm" aria-pressed="false">
+                  <span class="filter-swatch swatch-warm"></span>Warm
+                </button>
+                <button class="filter-button" type="button" data-filter="classic" aria-pressed="false">
+                  <span class="filter-swatch swatch-classic"></span>Classic film
+                </button>
+                <button class="filter-button" type="button" data-filter="portrait" aria-pressed="false">
+                  <span class="filter-swatch swatch-portrait"></span>Soft portrait
+                </button>
+                <button class="filter-button" type="button" data-filter="golden" aria-pressed="false">
+                  <span class="filter-swatch swatch-golden"></span>Golden hour
+                </button>
+                <button class="filter-button" type="button" data-filter="mono" aria-pressed="false">
+                  <span class="filter-swatch swatch-mono"></span>B&amp;W
+                </button>
+              </div>
+            </div>
+            <div class="frame-picker">
+              <p class="control-label">PICK A FRAME</p>
+              <div class="frame-options" role="group" aria-label="Photo strip frame">
+                <button class="frame-button active" type="button" data-frame="classic" aria-pressed="true">
+                  <span class="frame-swatch frame-swatch-classic" aria-hidden="true"></span>Classic
+                </button>
+                <button class="frame-button" type="button" data-frame="polaroid" aria-pressed="false">
+                  <span class="frame-swatch frame-swatch-polaroid" aria-hidden="true"></span>Polaroid
+                </button>
+                <button class="frame-button" type="button" data-frame="midnight" aria-pressed="false">
+                  <span class="frame-swatch frame-swatch-midnight" aria-hidden="true"></span>Midnight
+                </button>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="button button-secondary" id="camera-button" type="button">
+                <span aria-hidden="true">◉</span> Turn on camera
+              </button>
+              <button class="button button-primary" id="capture-button" type="button" disabled>
+                <span class="shutter-icon" aria-hidden="true"></span> Take a photo
+              </button>
+            </div>
+            <p class="status-message" id="status" role="status">Your photos stay on this device.</p>
+          </div>
+        </div>
+
+        <aside class="strip-panel" aria-label="Your photo strip">
+          <div class="strip-heading">
+            <div>
+              <p class="section-label">YOUR PHOTO STRIP</p>
+              <h2>A keepsake, in the making</h2>
+            </div>
+            <span class="photo-count" id="photo-count">0 / 4</span>
+          </div>
+
+          <div class="tray">
+            <div class="tray-slot" aria-hidden="true"></div>
+            <div class="photo-strip" id="photo-strip" data-frame="classic" aria-live="polite">
+              <div class="photo-slot"><span>01</span><span class="slot-star">✳</span></div>
+              <div class="photo-slot"><span>02</span><span class="slot-star">✳</span></div>
+              <div class="photo-slot"><span>03</span><span class="slot-star">✳</span></div>
+              <div class="photo-slot"><span>04</span><span class="slot-star">✳</span></div>
+              <div class="strip-caption">a little moment to remember</div>
+            </div>
+          </div>
+
+          <div class="strip-footer">
+            <p id="strip-hint">Your four photos will show up here.</p>
+            <button class="button button-download" id="download-button" type="button" disabled>
+              Download strip <span aria-hidden="true">↓</span>
+            </button>
+            <button class="retake-button" id="retake-button" type="button" hidden>Start a new strip</button>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="page-footer">
+        <span>Made for the moments in between <span aria-hidden="true">♡</span></span>
+        <span>No uploads. No fuss. Just photos.</span>
+      </footer>
+    </main>
+    <div class="floor" aria-hidden="true"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
