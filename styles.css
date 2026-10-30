@@ -206,12 +206,13 @@ button {
 /* Booth */
 .booth {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
+  grid-template-columns: minmax(190px, 0.78fr) minmax(0, 1.8fr) minmax(210px, 0.82fr);
   gap: clamp(18px, 2.4vw, 28px);
   align-items: stretch;
 }
 
 .studio,
+.controls-panel,
 .strip-panel {
   position: relative;
   border: 3px solid var(--line);
@@ -223,6 +224,26 @@ button {
   padding: clamp(28px, 3vw, 34px) clamp(18px, 2.2vw, 26px) 26px;
   background: var(--red);
   color: #fff;
+}
+
+.controls-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(20px, 2.4vw, 26px);
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.controls-heading h2 {
+  margin: 5px 0 0;
+  font-family: var(--display);
+  font-size: 23px;
+  font-weight: 400;
+}
+
+.controls-heading .section-label {
+  color: var(--red);
 }
 
 .strip-panel {
@@ -934,6 +955,10 @@ body.camera-on .live-badge span {
     grid-template-columns: 1fr;
   }
 
+  .controls-panel {
+    min-height: 0;
+  }
+
   .strip-panel {
     min-height: 0;
   }
@@ -1008,6 +1033,7 @@ body.camera-on .live-badge span {
   }
 
   .studio,
+  .controls-panel,
   .strip-panel {
     padding: clamp(15px, 4.5vw, 20px);
     border-radius: 18px;
@@ -1016,6 +1042,10 @@ body.camera-on .live-badge span {
 
   .studio {
     padding-top: clamp(28px, 8vw, 32px);
+  }
+
+  .controls-heading h2 {
+    font-size: clamp(19px, 5.8vw, 23px);
   }
 
   .studio-heading h2 {
@@ -1176,6 +1206,65 @@ body.camera-on .live-badge span {
     flex: 1;
   }
 
+  .controls-panel {
+    min-height: 0;
+    padding: 20px 14px;
+  }
+
+  .controls-heading h2 {
+    font-size: 21px;
+  }
+
+  .camera-controls {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 16px;
+  }
+
+  .filter-picker,
+  .frame-picker {
+    margin-bottom: 16px;
+  }
+
+  .control-label {
+    margin-bottom: 7px;
+    color: var(--red-dark);
+  }
+
+  .filter-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    padding: 2px 2px 4px;
+  }
+
+  .filter-button,
+  .frame-button {
+    min-width: 0;
+    justify-content: flex-start;
+    gap: 5px;
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  .filter-button {
+    width: 100%;
+  }
+
+  .filter-swatch {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+  }
+
+  .frame-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
   .studio {
     display: flex;
     min-height: 0;
@@ -1184,9 +1273,10 @@ body.camera-on .live-badge span {
   }
 
   .camera-frame {
-    min-height: 100px;
+    width: 100%;
+    min-height: 0;
     margin-top: 12px;
-    flex: 1;
+    flex: 1 1 0;
     aspect-ratio: auto;
   }
 
@@ -1209,33 +1299,21 @@ body.camera-on .live-badge span {
     font-size: 10px;
   }
 
-  .camera-controls {
-    gap: 0 12px;
-    padding-top: 10px;
+  .studio-actions {
     flex: 0 0 auto;
+    padding-top: 10px;
   }
 
-  .filter-picker,
-  .frame-picker {
-    margin-bottom: 7px;
+  .actions {
+    justify-content: center;
   }
 
-  .filter-options {
-    gap: 6px;
-  }
-
-  .filter-button,
-  .frame-button {
-    padding: 5px 8px;
-    font-size: 11px;
+  .status-message {
+    text-align: center;
   }
 
   .actions .button {
     min-height: 40px;
-  }
-
-  .status-message {
-    margin-top: 6px;
   }
 
   .strip-panel {
@@ -1284,6 +1362,19 @@ body.camera-on .live-badge span {
     padding: 18px 14px 8px;
   }
 
+  .controls-panel {
+    padding: 14px 10px;
+  }
+
+  .camera-controls {
+    padding-top: 10px;
+  }
+
+  .filter-picker,
+  .frame-picker {
+    margin-bottom: 10px;
+  }
+
   .studio-heading h2 {
     font-size: 22px;
   }
@@ -1326,6 +1417,12 @@ body.camera-on .live-badge span {
     gap: 5px;
     padding: 3px 6px;
     font-size: 10px;
+  }
+
+  .filter-swatch {
+    width: 12px;
+    height: 12px;
+    flex-basis: 12px;
   }
 
   .filter-swatch,

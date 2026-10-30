@@ -37,34 +37,11 @@
       </section>
 
       <section class="booth" aria-label="Photobooth">
-        <div class="studio">
-          <div class="bulbs" aria-hidden="true"></div>
-
-          <div class="studio-heading">
-            <div>
-              <p class="section-label">THE STUDIO</p>
-              <h2>Get camera-ready</h2>
-            </div>
-            <span class="live-badge"><span></span> LIVE</span>
+        <aside class="controls-panel" aria-label="Photo settings">
+          <div class="controls-heading">
+            <p class="section-label">MAKE IT YOURS</p>
+            <h2>Pick your style</h2>
           </div>
-
-          <div class="camera-frame">
-            <video id="camera" autoplay playsinline muted aria-label="Camera preview"></video>
-            <div class="camera-placeholder" id="placeholder">
-              <div class="placeholder-sun" aria-hidden="true">☼</div>
-              <p>Your moment starts here</p>
-              <span>Turn on your camera when you’re ready</span>
-            </div>
-            <div class="countdown" id="countdown" aria-live="assertive" hidden></div>
-            <div class="flash" id="flash" aria-hidden="true"></div>
-            <span class="corner corner-tl" aria-hidden="true"></span>
-            <span class="corner corner-tr" aria-hidden="true"></span>
-            <span class="corner corner-bl" aria-hidden="true"></span>
-            <span class="corner corner-br" aria-hidden="true"></span>
-            <span class="frame-sparkle sparkle-one" aria-hidden="true">✳</span>
-            <span class="frame-sparkle sparkle-two" aria-hidden="true">✳</span>
-          </div>
-
           <div class="camera-controls">
             <div class="filter-picker">
               <p class="control-label">PICK A MOOD</p>
@@ -103,6 +80,38 @@
                 </button>
               </div>
             </div>
+          </div>
+        </aside>
+
+        <div class="studio">
+          <div class="bulbs" aria-hidden="true"></div>
+
+          <div class="studio-heading">
+            <div>
+              <p class="section-label">THE STUDIO</p>
+              <h2>Get camera-ready</h2>
+            </div>
+            <span class="live-badge"><span></span> LIVE</span>
+          </div>
+
+          <div class="camera-frame">
+            <video id="camera" autoplay playsinline muted aria-label="Camera preview"></video>
+            <div class="camera-placeholder" id="placeholder">
+              <div class="placeholder-sun" aria-hidden="true">☼</div>
+              <p>Your moment starts here</p>
+              <span>Turn on your camera when you’re ready</span>
+            </div>
+            <div class="countdown" id="countdown" aria-live="assertive" hidden></div>
+            <div class="flash" id="flash" aria-hidden="true"></div>
+            <span class="corner corner-tl" aria-hidden="true"></span>
+            <span class="corner corner-tr" aria-hidden="true"></span>
+            <span class="corner corner-bl" aria-hidden="true"></span>
+            <span class="corner corner-br" aria-hidden="true"></span>
+            <span class="frame-sparkle sparkle-one" aria-hidden="true">✳</span>
+            <span class="frame-sparkle sparkle-two" aria-hidden="true">✳</span>
+          </div>
+
+          <div class="studio-actions">
             <div class="actions">
               <button class="button button-secondary" id="camera-button" type="button">
                 <span aria-hidden="true">◉</span> Turn on camera
