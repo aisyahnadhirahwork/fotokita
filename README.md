@@ -14,13 +14,15 @@ Fotokita is a lightweight static web app built with HTML, CSS, and vanilla JavaS
 - Multiple photo filters: Original, Warm, Classic film, Soft portrait, Golden hour, and Black & White
 - Multiple strip frames: Classic, Polaroid, and Midnight
 - Downloadable photo strip saved locally to your device
-- No server-side uploads or backend required
+- Vercel Web Analytics page-view tracking
+- Photos stay in the browser and are never uploaded
 
 ## Tech Stack
 
 - HTML5
 - CSS3
 - JavaScript (vanilla)
+- Vercel Web Analytics
 
 ## Project Structure
 
@@ -40,6 +42,19 @@ Because the app uses the browser camera, it should be served from a local web se
 
 Open the project in VS Code and launch it with a local static server extension such as Live Server.
 
+## Enable Vercel Web Analytics
+
+This project is plain HTML, so use Vercel's HTML integration rather than installing the React/Next.js package:
+
+1. In your Vercel project dashboard, open **Analytics** and enable Web Analytics.
+2. Deploy the site to Vercel and copy the script URL from Vercel's HTML instructions.
+3. Paste that URL (for example, `/<unique-path>/script.js`) into the `vercel-analytics-script` meta tag in `index.html`.
+4. Deploy again. Page views will appear in the Vercel Analytics dashboard.
+
+The footer keeps its decorative stats UI, but Vercel reports totals in its dashboard rather than exposing them to the page. The displayed dashes are placeholders, not live counts. A successful camera start is also sent as a `Booth Started` custom event; custom events require a Vercel plan that supports them.
+
+See the [Vercel Analytics quickstart for plain HTML](https://vercel.com/docs/analytics/quickstart?framework=html) and the [custom events guide](https://vercel.com/docs/analytics/custom-events) for details.
+
 ## How to Use
 
 1. Open the app in a browser.
@@ -54,7 +69,8 @@ Open the project in VS Code and launch it with a local static server extension s
 
 - Camera access is browser-dependent and works best on localhost or HTTPS.
 - Photos are processed and downloaded in the browser; they are not uploaded anywhere.
-- The app is intentionally front-end only and does not include authentication, storage, or backend APIs.
+- Analytics requires the site to be deployed on Vercel and enabled in the project dashboard.
+- The photobooth itself remains a static, browser-only app; analytics does not upload photos.
 
 ## License
 
