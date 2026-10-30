@@ -18,6 +18,7 @@ const FRAME_STYLES = {
 const camera = document.querySelector("#camera");
 const placeholder = document.querySelector("#placeholder");
 const cameraButton = document.querySelector("#camera-button");
+const flipCameraButton = document.querySelector("#flip-camera-button");
 const captureButton = document.querySelector("#capture-button");
 const downloadButton = document.querySelector("#download-button");
 const retakeButton = document.querySelector("#retake-button");
@@ -32,11 +33,13 @@ const filterButtons = [...document.querySelectorAll(".filter-button")];
 const frameButtons = [...document.querySelectorAll(".frame-button")];
 
 let stream = null;
+let isFrontCamera = true;
 let selectedFilter = "none";
 let selectedFrame = "classic";
 let photos = [];
 let countdownTimer = null;
 let isCapturing = false;
+let isSwitchingCamera = false;
 
 function setStatus(message, isError = false) {
   statusMessage.textContent = message;
@@ -57,8 +60,12 @@ async function startCamera() {
       audio: false,
       video: { facingMode: "user" },
     });
+    isFrontCamera = true;
     camera.srcObject = stream;
+    camera.style.transform = "scaleX(-1)";
     placeholder.hidden = true;
+    flipCameraButton.hidden = false;
+    flipCameraButton.disabled = false;
     captureButton.disabled = false;
     document.body.classList.add("camera-on");
     cameraButton.innerHTML = "<span aria-hidden=\"true\">◉</span> Camera on";
@@ -73,6 +80,42 @@ async function startCamera() {
     } else {
       setStatus("Couldn’t start the camera. Check that it’s connected and try again.", true);
     }
+  }
+}
+
+async function flipCamera() {
+  if (!stream || isCapturing || isSwitchingCamera) return;
+
+  const nextFacingMode = isFrontCamera ? "environment" : "user";
+  isSwitchingCamera = true;
+  flipCameraButton.disabled = true;
+  captureButton.disabled = true;
+  setStatus("Switching camera…");
+
+  try {
+    const nextStream = await navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: { facingMode: { exact: nextFacingMode } },
+    });
+    const previousStream = stream;
+    stream = nextStream;
+    isFrontCamera = nextFacingMode === "user";
+    camera.srcObject = nextStream;
+    camera.style.transform = isFrontCamera ? "scaleX(-1)" : "none";
+    previousStream.getTracks().forEach((track) => track.stop());
+    setStatus(`Using the ${isFrontCamera ? "front" : "rear"} camera. Your photos stay on this device.`);
+  } catch (error) {
+    if (error.name === "NotFoundError" || error.name === "OverconstrainedError" || error.name === "DevicesNotFoundError") {
+      setStatus("Couldn’t switch cameras. This device may not have another camera.", true);
+    } else if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
+      setStatus("Camera access was denied. Allow camera access in your browser to switch cameras.", true);
+    } else {
+      setStatus("Couldn’t switch cameras. Your current camera is still available.", true);
+    }
+  } finally {
+    isSwitchingCamera = false;
+    flipCameraButton.disabled = false;
+    captureButton.disabled = photos.length >= PHOTO_LIMIT;
   }
 }
 
@@ -108,6 +151,7 @@ function capturePhoto() {
   if (!stream || isCapturing || photos.length >= PHOTO_LIMIT) return;
   isCapturing = true;
   captureButton.disabled = true;
+  flipCameraButton.disabled = true;
 
   let secondsLeft = 3;
   countdown.hidden = false;
@@ -134,6 +178,7 @@ function savePhoto() {
   if (!sourceWidth || !sourceHeight) {
     isCapturing = false;
     captureButton.disabled = false;
+    flipCameraButton.disabled = false;
     setStatus("Camera is still starting. Try again in a moment.", true);
     return;
   }
@@ -158,8 +203,10 @@ function savePhoto() {
   }
 
   context.filter = STRIP_FILTERS[selectedFilter];
-  context.translate(PHOTO_WIDTH, 0);
-  context.scale(-1, 1);
+  if (isFrontCamera) {
+    context.translate(PHOTO_WIDTH, 0);
+    context.scale(-1, 1);
+  }
   context.drawImage(
     camera,
     cropX,
@@ -178,6 +225,7 @@ function savePhoto() {
   photoSlots[photos.length - 1].classList.add("pop");
   isCapturing = false;
   captureButton.disabled = photos.length >= PHOTO_LIMIT;
+  flipCameraButton.disabled = false;
 
   if (photos.length === PHOTO_LIMIT) {
     downloadButton.disabled = false;
@@ -306,6 +354,7 @@ function stopCamera() {
 }
 
 cameraButton.addEventListener("click", startCamera);
+flipCameraButton.addEventListener("click", flipCamera);
 captureButton.addEventListener("click", capturePhoto);
 downloadButton.addEventListener("click", downloadStrip);
 retakeButton.addEventListener("click", resetStrip);
