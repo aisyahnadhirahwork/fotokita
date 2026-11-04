@@ -970,10 +970,6 @@ body.camera-on .live-badge span {
   font-size: 12px;
 }
 
-.stats-divider {
-  color: var(--muted);
-}
-
 .stats-message {
   padding-left: 7px;
   border-left: 1px dashed var(--muted);

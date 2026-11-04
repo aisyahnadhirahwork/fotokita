@@ -51,7 +51,7 @@ This project is plain HTML, so use Vercel's HTML integration rather than install
 3. Paste that URL (for example, `/<unique-path>/script.js`) into the `vercel-analytics-script` meta tag in `index.html`.
 4. Deploy again. Page views will appear in the Vercel Analytics dashboard.
 
-The footer keeps its decorative stats UI, but Vercel reports totals in its dashboard rather than exposing them to the page. The displayed dashes are placeholders, not live counts. A successful camera start is also sent as a `Booth Started` custom event; custom events require a Vercel plan that supports them.
+Visitor totals are available in the Vercel dashboard and are not displayed on the page. The footer's booth-tries value is a placeholder, not a live count. A successful camera start is also sent as a `Booth Started` custom event; custom events require a Vercel plan that supports them.
 
 See the [Vercel Analytics quickstart for plain HTML](https://vercel.com/docs/analytics/quickstart?framework=html) and the [custom events guide](https://vercel.com/docs/analytics/custom-events) for details.
 
