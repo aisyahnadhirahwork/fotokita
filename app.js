@@ -31,8 +31,6 @@ const photoSlots = [...document.querySelectorAll(".photo-slot")];
 const photoStrip = document.querySelector("#photo-strip");
 const filterButtons = [...document.querySelectorAll(".filter-button")];
 const frameButtons = [...document.querySelectorAll(".frame-button")];
-const statsMessage = document.querySelector("#stats-message");
-const analyticsScriptPath = document.querySelector('meta[name="vercel-analytics-script"]').content.trim();
 
 let stream = null;
 let isFrontCamera = true;
@@ -42,10 +40,6 @@ let photos = [];
 let countdownTimer = null;
 let isCapturing = false;
 let isSwitchingCamera = false;
-
-if (analyticsScriptPath) {
-  statsMessage.textContent = "Tracked with Vercel Analytics";
-}
 
 function setStatus(message, isError = false) {
   statusMessage.textContent = message;
@@ -77,9 +71,6 @@ async function startCamera() {
     cameraButton.innerHTML = "<span aria-hidden=\"true\">◉</span> Camera on";
     cameraButton.disabled = true;
     setStatus("Looking good! Your photos stay on this device.");
-    if (analyticsScriptPath) {
-      window.va("event", { name: "Booth Started" });
-    }
   } catch (error) {
     cameraButton.disabled = false;
     if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {

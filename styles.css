@@ -939,45 +939,6 @@ body.camera-on .live-badge span {
   color: var(--red);
 }
 
-.community-stats {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
-  border: 2px solid var(--line);
-  border-radius: 999px;
-  background: var(--cream);
-  box-shadow: 2px 2px 0 var(--line);
-  color: var(--ink);
-  font-size: 9px;
-  white-space: nowrap;
-}
-
-.stats-sparkle {
-  color: var(--red);
-  font-size: 13px;
-}
-
-.stats-item {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.stats-item strong {
-  color: var(--red-dark);
-  font-family: var(--sans);
-  font-size: 12px;
-}
-
-.stats-message {
-  padding-left: 7px;
-  border-left: 1px dashed var(--muted);
-  color: var(--muted);
-  font-size: 8px;
-  font-weight: 500;
-}
-
 .floor {
   height: 48px;
   border-top: 3px solid var(--line);
@@ -1148,11 +1109,6 @@ body.camera-on .live-badge span {
     font-size: clamp(9px, 2.8vw, 10px);
   }
 
-  .community-stats {
-    max-width: 100%;
-    gap: 6px;
-    font-size: 8px;
-  }
 }
 
 @media (max-width: 360px) {

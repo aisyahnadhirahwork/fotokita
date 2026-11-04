@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#e8473f" />
-    <meta name="vercel-analytics-script" content="" />
     <title>Little Moments | Online Photobooth</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,18 +12,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script>
-      window.va = window.va || function () {
-        (window.vaq = window.vaq || []).push(arguments);
-      };
-      const vercelAnalyticsScriptPath = document.querySelector('meta[name="vercel-analytics-script"]').content.trim();
-      if (vercelAnalyticsScriptPath) {
-        const vercelAnalyticsScript = document.createElement("script");
-        vercelAnalyticsScript.defer = true;
-        vercelAnalyticsScript.src = vercelAnalyticsScriptPath;
-        document.head.append(vercelAnalyticsScript);
-      }
-    </script>
   </head>
   <body>
     <div class="awning" aria-hidden="true"></div>
@@ -172,11 +159,6 @@
 
       <footer class="page-footer">
         <span>Made for the moments in between <span aria-hidden="true">♡</span></span>
-        <div class="community-stats" aria-label="Photobooth community stats">
-          <span class="stats-sparkle" aria-hidden="true">✳</span>
-          <span class="stats-item"><strong id="booth-count">—</strong><span>booth tries</span></span>
-          <span class="stats-message" id="stats-message">Set up Vercel Analytics</span>
-        </div>
         <span>No uploads. No fuss. Just photos.</span>
       </footer>
     </main>
