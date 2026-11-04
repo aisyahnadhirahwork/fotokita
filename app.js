@@ -32,7 +32,6 @@ const photoStrip = document.querySelector("#photo-strip");
 const filterButtons = [...document.querySelectorAll(".filter-button")];
 const frameButtons = [...document.querySelectorAll(".frame-button")];
 const statsMessage = document.querySelector("#stats-message");
-const analyticsScriptPath = document.querySelector('meta[name="vercel-analytics-script"]').content.trim();
 
 let stream = null;
 let isFrontCamera = true;
@@ -43,7 +42,8 @@ let countdownTimer = null;
 let isCapturing = false;
 let isSwitchingCamera = false;
 
-if (analyticsScriptPath) {
+// Update stats message to indicate analytics is enabled
+if (typeof window.va === 'function') {
   statsMessage.textContent = "Tracked with Vercel Analytics";
 }
 
@@ -77,7 +77,7 @@ async function startCamera() {
     cameraButton.innerHTML = "<span aria-hidden=\"true\">◉</span> Camera on";
     cameraButton.disabled = true;
     setStatus("Looking good! Your photos stay on this device.");
-    if (analyticsScriptPath) {
+    if (typeof window.va === 'function') {
       window.va("event", { name: "Booth Started" });
     }
   } catch (error) {

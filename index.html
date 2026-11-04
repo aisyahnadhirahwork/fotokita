@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#e8473f" />
-    <meta name="vercel-analytics-script" content="" />
     <title>Little Moments | Online Photobooth</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,14 +16,8 @@
       window.va = window.va || function () {
         (window.vaq = window.vaq || []).push(arguments);
       };
-      const vercelAnalyticsScriptPath = document.querySelector('meta[name="vercel-analytics-script"]').content.trim();
-      if (vercelAnalyticsScriptPath) {
-        const vercelAnalyticsScript = document.createElement("script");
-        vercelAnalyticsScript.defer = true;
-        vercelAnalyticsScript.src = vercelAnalyticsScriptPath;
-        document.head.append(vercelAnalyticsScript);
-      }
     </script>
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
     <div class="awning" aria-hidden="true"></div>
