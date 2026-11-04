@@ -1,10 +1,10 @@
-# Fotokita
+# SnapBooth
 
 A playful browser-based photobooth that lets you snap a 4-photo strip with a live camera preview, styling filters, and a downloadable keepsake.
 
 ## Overview
 
-Fotokita is a lightweight static web app built with HTML, CSS, and vanilla JavaScript. It gives you a retro photobooth experience directly in the browser: turn on your camera, choose a mood and frame, take four shots, and download the finished strip as a PNG.
+SnapBooth is a lightweight static web app built with HTML, CSS, and vanilla JavaScript. It gives you a retro photobooth experience directly in the browser: turn on your camera, choose a mood and frame, take four shots, and download the finished strip as a PNG.
 
 ## Features
 
